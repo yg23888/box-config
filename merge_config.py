@@ -3,12 +3,10 @@
 
 Output:
   core.json      data-only sites (type 0/1) + parses + lives + flags + ads
-  ext.json       code sites (type 3, HTTPS only) - opt-in, hash-pinned
-  manifest.json  sha256 + counts + per-source status + JS hashes
+  manifest.json  sha256 + counts + per-source status
 
 Safety rules:
-  - core: absolute http(s) API only, no jar/spider, no type 3
-  - ext:  absolute https only, no jar/spider
+  - absolute http(s) API only, no jar/spider, no type 3 (JS)
   - never write output if validation fails
 """
 from __future__ import annotations
@@ -125,7 +123,7 @@ def sha256_file(path: str) -> str:
 
 
 def merge(previous_core_count: int):
-    core_sites, ext_sites = [], []
+    core_sites = []
     seen_keys, seen_api = set(), set()
     parses, seen_parse = [], set()
     lives, seen_live = [], set()
@@ -154,13 +152,7 @@ def merge(previous_core_count: int):
             if not key:
                 continue
             typ = s.get("type")
-            if typ == 3:
-                if not api.startswith("https://"):
-                    continue
-                bucket = ext_sites
-            elif typ in (0, 1):
-                bucket = core_sites
-            else:
+            if typ not in (0, 1):
                 continue
             k = key.lower()
             if k in seen_keys or api in seen_api:
@@ -169,7 +161,7 @@ def merge(previous_core_count: int):
             seen_api.add(api)
             s.pop("jar", None)
             s.pop("spider", None)
-            bucket.append(s)
+            core_sites.append(s)
             entry["sites"] += 1
 
         for p in data.get("parses") or []:
@@ -213,11 +205,10 @@ def merge(previous_core_count: int):
         "spider": "",
         "wallpaper": "",
     }
-    ext = {"sites": ext_sites, "parses": [], "lives": [], "flags": [], "ads": [], "spider": ""}
-    return core, ext, status
+    return core, status
 
 
-def validate(core, ext, status, previous_core_count):
+def validate(core, status, previous_core_count):
     errors = []
     ok_sources = sum(1 for s in status if s["ok"])
     if ok_sources < MIN_SOURCES_OK:
@@ -226,36 +217,16 @@ def validate(core, ext, status, previous_core_count):
         errors.append(f"core sites {len(core['sites'])} < {MIN_CORE_SITES}")
     if previous_core_count and len(core["sites"]) < previous_core_count * 0.8:
         errors.append(f"core sites dropped {previous_core_count} -> {len(core['sites'])} (>20% loss)")
-    if len(ext["sites"]) > 40:
-        errors.append(f"ext sites {len(ext['sites'])} > 40")
     if any(not str(s.get("api", "")).startswith(("http://", "https://")) for s in core["sites"]):
         errors.append("core contains non-absolute api")
     if any(s.get("type") == 3 for s in core["sites"]):
         errors.append("core contains type 3 site")
-    if any(not str(s.get("api", "")).startswith("https://") for s in ext["sites"]):
-        errors.append("ext contains non-https site")
     return errors
-
-
-def js_hashes(ext):
-    result = {}
-    for s in ext["sites"]:
-        url = str(s.get("api") or "")
-        if not url.endswith(".js") and ".js?" not in url:
-            continue
-        try:
-            data = fetch(url, timeout=20)
-            result[url] = hashlib.sha256(data).hexdigest()
-        except Exception as exc:  # noqa: BLE001
-            result[url] = None
-            log(f"[warn] js hash failed {url}: {type(exc).__name__}")
-    return result
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=".", help="output directory")
-    ap.add_argument("--no-js-hash", action="store_true")
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
 
@@ -267,8 +238,8 @@ def main():
         except Exception:
             prev_count = 0
 
-    core, ext, status = merge(prev_count)
-    errors = validate(core, ext, status, prev_count)
+    core, status = merge(prev_count)
+    errors = validate(core, status, prev_count)
     if errors:
         for e in errors:
             log(f"[FAIL] {e}")
@@ -276,18 +247,10 @@ def main():
         return 1
 
     core_path = os.path.join(args.out, "core.json")
-    ext_path = os.path.join(args.out, "ext.json")
     man_path = os.path.join(args.out, "manifest.json")
 
     with open(core_path, "w", encoding="utf-8") as f:
         json.dump(core, f, ensure_ascii=False, separators=(",", ":"))
-    with open(ext_path, "w", encoding="utf-8") as f:
-        json.dump(ext, f, ensure_ascii=False, indent=1)
-
-    hashes = {}
-    if not args.no_js_hash:
-        hashes = js_hashes(ext)
-
     now = datetime.now(CST)
     manifest = {
         "schema": 1,
@@ -301,21 +264,14 @@ def main():
             "flags": len(core["flags"]),
             "ads": len(core["ads"]),
         },
-        "ext": {
-            "file": "ext.json",
-            "sha256": sha256_file(ext_path),
-            "sites": len(ext["sites"]),
-            "enabled_by_default": False,
-        },
         "sources": status,
-        "js_hashes": hashes,
     }
     with open(man_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=1)
 
     log(
-        "OK core=%d ext=%d parses=%d lives=%d flags=%d ads=%d"
-        % (len(core["sites"]), len(ext["sites"]), len(core["parses"]),
+        "OK core=%d parses=%d lives=%d flags=%d ads=%d"
+        % (len(core["sites"]), len(core["parses"]),
            len(core["lives"]), len(core["flags"]), len(core["ads"]))
     )
     return 0
