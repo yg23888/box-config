@@ -1,4 +1,4 @@
-# tvbox-config
+# box-config
 
 FongMi/TV（影视TV）与 TVBox 兼容播放器使用的公开配置仓库。每 7 天自动合并一次公开源，校验后发布。
 
@@ -7,19 +7,19 @@ FongMi/TV（影视TV）与 TVBox 兼容播放器使用的公开配置仓库。�
 核心配置（默认使用，仅数据型 API 源）：
 
 ```
-https://cdn.jsdelivr.net/gh/yg23888/tvbox-config@main/core.json
+https://cdn.jsdelivr.net/gh/yg23888/box-config@main/core.json
 ```
 
 备用地址（GitHub 直连）：
 
 ```
-https://raw.githubusercontent.com/yg23888/tvbox-config/main/core.json
+https://raw.githubusercontent.com/yg23888/box-config/main/core.json
 ```
 
 扩展包（JS 源，默认不启用，见下方安全说明）：
 
 ```
-https://cdn.jsdelivr.net/gh/yg23888/tvbox-config@main/ext.json
+https://cdn.jsdelivr.net/gh/yg23888/box-config@main/ext.json
 ```
 
 ## 文件说明
