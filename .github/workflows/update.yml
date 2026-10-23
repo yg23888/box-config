@@ -36,10 +36,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- core.json ext.json manifest.json core.prev.json; then
+          if git diff --quiet -- core.json manifest.json core.prev.json; then
             echo "no config changes"
             exit 0
           fi
-          git add core.json ext.json manifest.json core.prev.json
+          git add core.json manifest.json core.prev.json
           git commit -m "chore: update config $(date -u +%Y-%m-%dT%H:%MZ)"
           git push
