@@ -1,0 +1,103 @@
+{
+ "schema": 1,
+ "generated_at": "2026-10-23T22:21:57+08:00",
+ "core": {
+  "file": "core.json",
+  "sha256": "f9905d7893fd08d7a71fe7f3a763f207feba71d9f67f7818348fa628360d1131",
+  "sites": 69,
+  "parses": 67,
+  "lives": 42,
+  "flags": 62,
+  "ads": 6
+ },
+ "ext": {
+  "file": "ext.json",
+  "sha256": "4117e6dac6acd5b276bf583b1df090d8b2b2adc0e2116f97d11f223a80f4b9c5",
+  "sites": 8,
+  "enabled_by_default": false
+ },
+ "sources": [
+  {
+   "name": "老刘备",
+   "url": "https://raw.liucn.cc/box/m.json",
+   "ok": true,
+   "sites": 14,
+   "parses": 22,
+   "lives": 3,
+   "error": ""
+  },
+  {
+   "name": "小马",
+   "url": "https://szyyds.cn/tv/x.json",
+   "ok": true,
+   "sites": 15,
+   "parses": 24,
+   "lives": 10,
+   "error": ""
+  },
+  {
+   "name": "小盒子4K",
+   "url": "http://xhztv.top/4k.json",
+   "ok": true,
+   "sites": 9,
+   "parses": 9,
+   "lives": 1,
+   "error": ""
+  },
+  {
+   "name": "创享影视",
+   "url": "https://ys.cxkjg.cn/api/provide/tvbox",
+   "ok": true,
+   "sites": 12,
+   "parses": 0,
+   "lives": 0,
+   "error": ""
+  },
+  {
+   "name": "cluntop/tvbox",
+   "url": "https://raw.githubusercontent.com/cluntop/tvbox/main/box.json",
+   "ok": true,
+   "sites": 15,
+   "parses": 6,
+   "lives": 16,
+   "error": ""
+  },
+  {
+   "name": "Lightconer/tvbox-source",
+   "url": "https://raw.githubusercontent.com/Lightconer/tvbox-source/main/tvbox.json",
+   "ok": true,
+   "sites": 9,
+   "parses": 6,
+   "lives": 8,
+   "error": ""
+  },
+  {
+   "name": "larry-biu/tvbox-config",
+   "url": "https://raw.githubusercontent.com/larry-biu/tvbox-config/main/tvbox.json",
+   "ok": true,
+   "sites": 3,
+   "parses": 0,
+   "lives": 0,
+   "error": ""
+  },
+  {
+   "name": "jiusanzhou/tvbox",
+   "url": "https://raw.githubusercontent.com/jiusanzhou/tvbox/main/tvbox.json",
+   "ok": true,
+   "sites": 0,
+   "parses": 0,
+   "lives": 4,
+   "error": ""
+  }
+ ],
+ "js_hashes": {
+  "https://files.catbox.moe/gd1tos.js": null,
+  "https://szyyds.cn/js/6F02.js": "3527012aed2f6dcf7edd8a6073a2a5fd19bdf271cd9b177ac828f20dc9d504ba",
+  "https://git.yylx.win/https://raw.githubusercontent.com/fantaiying7/EXT/refs/heads/main/drpy2.min.js": "1fd5ecd4077f106dfd3952c208d7d0a25762ca90d1ae416dde996065e1507ab9",
+  "https://jihulab.com/yydfys/yydf/-/raw/main/yydf/lib/drpy2.min.js": "10fbf0af7184d685116f254464d3d06520580cd9f06206cc22d892a3ae77a79e",
+  "https://jihulab.com/yw88075/tvbox/-/raw/main/dr/lib/drpy2.min.js": null,
+  "https://github.moeyy.xyz/raw.githubusercontent.com/gaotianliuyun/gao/master/lib/drpy2.min.js": null,
+  "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=f5a26a1a&t=1792748350026": "f5a26a1a546ab0cf5068bff63fc0121e5c848dadc8136d05adb11083745fc75c",
+  "https://zoe.im/tvbox/sites/ddys/spider.js?v=6e848abf&t=1792748350026": "6e848abff585e1d7414e8efe3d7fd8c262441192d4fd3cbb0016307b3bc8ed12"
+ }
+}

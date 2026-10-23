@@ -1,0 +1,45 @@
+name: Update TVBox Config
+
+on:
+  schedule:
+    # 每周一 03:00 北京时间（周日 19:00 UTC）
+    - cron: "0 19 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-tvbox-config
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Backup current core
+        run: |
+          if [ -f core.json ]; then cp core.json core.prev.json; fi
+
+      - name: Merge and validate sources
+        run: python merge_config.py --out .
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- core.json ext.json manifest.json core.prev.json; then
+            echo "no config changes"
+            exit 0
+          fi
+          git add core.json ext.json manifest.json core.prev.json
+          git commit -m "chore: update config $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
