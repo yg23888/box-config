@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-23T22:21:57+08:00",
+ "generated_at": "2026-10-23T22:24:44+08:00",
  "core": {
   "file": "core.json",
   "sha256": "f9905d7893fd08d7a71fe7f3a763f207feba71d9f67f7818348fa628360d1131",
@@ -91,7 +91,7 @@
   }
  ],
  "js_hashes": {
-  "https://files.catbox.moe/gd1tos.js": null,
+  "https://files.catbox.moe/gd1tos.js": "6bb23aab5e2542b79a5d7937847c3cbd6a097378610e70ed63bae2eaf00d4ccd",
   "https://szyyds.cn/js/6F02.js": "3527012aed2f6dcf7edd8a6073a2a5fd19bdf271cd9b177ac828f20dc9d504ba",
   "https://git.yylx.win/https://raw.githubusercontent.com/fantaiying7/EXT/refs/heads/main/drpy2.min.js": "1fd5ecd4077f106dfd3952c208d7d0a25762ca90d1ae416dde996065e1507ab9",
   "https://jihulab.com/yydfys/yydf/-/raw/main/yydf/lib/drpy2.min.js": "10fbf0af7184d685116f254464d3d06520580cd9f06206cc22d892a3ae77a79e",
