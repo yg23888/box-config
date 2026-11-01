@@ -1,9 +1,9 @@
 {
  "schema": 1,
- "generated_at": "2026-10-26T05:20:28+08:00",
+ "generated_at": "2026-11-02T06:33:50+08:00",
  "core": {
   "file": "core.json",
-  "sha256": "fd3c3d43698dd2a9ab87d519c421e89e435e41814f0b3c2b878cf98981979596",
+  "sha256": "f34fd392194bae1a878389509e772254b1fa91edf5226967c6d5de3b600c5f08",
   "sites": 69,
   "parses": 67,
   "lives": 42,
