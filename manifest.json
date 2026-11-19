@@ -1,10 +1,10 @@
 {
  "schema": 1,
- "generated_at": "2026-11-19T22:16:12+08:00",
+ "generated_at": "2026-11-19T22:21:01+08:00",
  "core": {
   "file": "core.json",
-  "sha256": "645f2fed823a5cf0f60df9d9ce6db6fb9a049a0b43d763373659d43f88a78b79",
-  "sites": 69,
+  "sha256": "918441326ec3661d6b19a437df64f2ad84d3b6f662c7f32d4fc11bac10a65e29",
+  "sites": 63,
   "parses": 67,
   "lives": 42,
   "flags": 62,
@@ -15,7 +15,7 @@
    "name": "老刘备",
    "url": "https://raw.liucn.cc/box/m.json",
    "ok": true,
-   "sites": 14,
+   "sites": 10,
    "parses": 22,
    "lives": 3,
    "error": ""
@@ -33,7 +33,7 @@
    "name": "小盒子4K",
    "url": "http://xhztv.top/4k.json",
    "ok": true,
-   "sites": 6,
+   "sites": 5,
    "parses": 9,
    "lives": 1,
    "error": ""
@@ -51,7 +51,7 @@
    "name": "cluntop/tvbox",
    "url": "https://raw.githubusercontent.com/cluntop/tvbox/main/box.json",
    "ok": true,
-   "sites": 15,
+   "sites": 14,
    "parses": 6,
    "lives": 16,
    "error": ""
