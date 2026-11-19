@@ -1,10 +1,10 @@
 {
  "schema": 1,
- "generated_at": "2026-11-19T22:21:01+08:00",
+ "generated_at": "2026-11-19T22:22:27+08:00",
  "core": {
   "file": "core.json",
-  "sha256": "918441326ec3661d6b19a437df64f2ad84d3b6f662c7f32d4fc11bac10a65e29",
-  "sites": 63,
+  "sha256": "21f09998c6939fc2eedeb4f5506d0333152f0db168b37ca813b14dd65a6d268f",
+  "sites": 62,
   "parses": 67,
   "lives": 42,
   "flags": 62,
@@ -15,7 +15,7 @@
    "name": "老刘备",
    "url": "https://raw.liucn.cc/box/m.json",
    "ok": true,
-   "sites": 10,
+   "sites": 9,
    "parses": 22,
    "lives": 3,
    "error": ""
