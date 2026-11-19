@@ -43,7 +43,8 @@ MIN_SOURCES_OK = 4
 # Sites on these hosts are skipped so weekly merges do not re-add them.
 EXCLUDE_HOSTS = {
     "49zy1.com",          # 四九资源
-    "xiaohu.icu",         # 小胡资源 / 小胡4K (IDN)
+    "小胡.icu",            # 小胡资源 / 小胡4K (IDN unicode)
+    "xiaohu.icu",         # 小胡资源 / 小胡4K (IDN ascii alias)
     "xn--yetu07f.icu",    # punycode of 小胡.icu
     "feisuzyapi.com",     # 飞速采集
     "qhzyapi.com",        # 奇虎采集
