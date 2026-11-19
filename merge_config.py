@@ -19,6 +19,7 @@ import re
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 
@@ -37,6 +38,18 @@ UA = "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 TVBoxConfigBot/1.0"
 CST = timezone(timedelta(hours=8))
 MIN_CORE_SITES = 45
 MIN_SOURCES_OK = 4
+
+# Hosts confirmed dead (NXDOMAIN from AliDNS + doh.pub, verified 2026-11-19).
+# Sites on these hosts are skipped so weekly merges do not re-add them.
+EXCLUDE_HOSTS = {
+    "49zy1.com",          # 四九资源
+    "xiaohu.icu",         # 小胡资源 / 小胡4K (IDN)
+    "xn--yetu07f.icu",    # punycode of 小胡.icu
+    "feisuzyapi.com",     # 飞速采集
+    "qhzyapi.com",        # 奇虎采集
+    "kekezy1.com",        # 可可资源
+    "fenwe078.cf",        # 四圈采集
+}
 
 
 def log(msg: str) -> None:
@@ -114,6 +127,19 @@ def is_abs(api: str) -> bool:
     return api.startswith(("http://", "https://"))
 
 
+def is_excluded(api: str) -> bool:
+    try:
+        host = (urllib.parse.urlparse(api).hostname or "").lower().rstrip(".")
+    except ValueError:
+        return False
+    if not host:
+        return False
+    for bad in EXCLUDE_HOSTS:
+        if host == bad or host.endswith("." + bad):
+            return True
+    return False
+
+
 def sha256_file(path: str) -> str:
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -147,6 +173,8 @@ def merge(previous_core_count: int):
                 continue
             api = str(s.get("api") or "")
             if not is_abs(api):
+                continue
+            if is_excluded(api):
                 continue
             key = str(s.get("key") or s.get("name") or "").strip()
             if not key:
